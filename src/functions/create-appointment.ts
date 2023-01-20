@@ -19,14 +19,17 @@ export class CreateAppointment {
         startsAt,
         endsAt
       );
-    if (conflictingAppointments) {
+
+    if (!conflictingAppointments) {
       throw new Error("Conflicting appointments found");
     }
+
     const appointment = new Appointment({
       customer,
       startsAt,
       endsAt,
     });
+
     await this.appointmentRepository.create(appointment);
     return appointment;
   }
